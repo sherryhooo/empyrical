@@ -66,9 +66,9 @@ class PerfAttribTestCase(unittest.TestCase):
                                                               factor_returns,
                                                               factor_loadings)
 
+        perf_attrib_output.index = perf_attrib_output.index.asfreq('d')
         pd.util.testing.assert_frame_equal(expected_perf_attrib_output,
                                            perf_attrib_output)
-
         pd.util.testing.assert_frame_equal(expected_exposures_portfolio,
                                            exposures_portfolio)
 
@@ -101,6 +101,7 @@ class PerfAttribTestCase(unittest.TestCase):
                   'risk_factor2': [0.0, 0.0]}
         )
 
+        perf_attrib_output.index = perf_attrib_output.index.asfreq('d')
         pd.util.testing.assert_frame_equal(expected_perf_attrib_output,
                                            perf_attrib_output)
 
@@ -136,6 +137,7 @@ class PerfAttribTestCase(unittest.TestCase):
                   'risk_factor2': [0.125, 0.125]}
         )
 
+        perf_attrib_output.index = perf_attrib_output.index.asfreq('d')
         pd.util.testing.assert_frame_equal(expected_perf_attrib_output,
                                            perf_attrib_output)
 
@@ -144,7 +146,7 @@ class PerfAttribTestCase(unittest.TestCase):
 
     def test_perf_attrib_regression(self):
 
-        positions = pd.read_csv('empyrical/tests/test_data/positions.csv',
+        positions = pd.read_csv('/data/home/sherryhu/empyrical/empyrical/tests/test_data/positions.csv',
                                 index_col=0, parse_dates=True)
 
         positions.columns = [int(col) if col != 'cash' else col
@@ -154,26 +156,26 @@ class PerfAttribTestCase(unittest.TestCase):
                                      axis='rows')
         positions = positions.drop('cash', axis='columns').stack()
 
-        returns = pd.read_csv('empyrical/tests/test_data/returns.csv',
+        returns = pd.read_csv('/data/home/sherryhu/empyrical/empyrical/tests/test_data/returns.csv',
                               index_col=0, parse_dates=True,
                               header=None, squeeze=True)
 
         factor_loadings = pd.read_csv(
-            'empyrical/tests/test_data/factor_loadings.csv',
+            '/data/home/sherryhu/empyrical/empyrical/tests/test_data/factor_loadings.csv',
             index_col=[0, 1], parse_dates=True
         )
 
         factor_returns = pd.read_csv(
-            'empyrical/tests/test_data/factor_returns.csv',
+            '/data/home/sherryhu/empyrical/empyrical/tests/test_data/factor_returns.csv',
             index_col=0, parse_dates=True
         )
 
-        residuals = pd.read_csv('empyrical/tests/test_data/residuals.csv',
+        residuals = pd.read_csv('/data/home/sherryhu/empyrical/empyrical/tests/test_data/residuals.csv',
                                 index_col=0, parse_dates=True)
 
         residuals.columns = [int(col) for col in residuals.columns]
 
-        intercepts = pd.read_csv('empyrical/tests/test_data/intercepts.csv',
+        intercepts = pd.read_csv('/data/home/sherryhu/empyrical/empyrical/tests/test_data/intercepts.csv',
                                  index_col=0, header=None, squeeze=True)
 
         risk_exposures_portfolio, perf_attrib_output = perf_attrib(

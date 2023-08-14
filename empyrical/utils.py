@@ -350,7 +350,7 @@ def load_portfolio_risk_factors(filepath_prefix=None, start=None, end=None):
     """
     Load risk factors Mkt-Rf, SMB, HML, Rf, and UMD.
     Data is stored in HDF5 file. If the data is more than 2
-    days old, redownload from Dartmouth.
+    days old, re-download from Dartmouth.
     Returns
     -------
     five_factors : pd.DataFrame
